@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1087341606737",
+    "project_id": "unmaskedai",
+    "storage_bucket": "unmaskedai.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087341606737:android:1617da45b903065fcf0570",
+        "android_client_info": {
+          "package_name": "com.unmasked.ai.unmasked_ai"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1087341606737-3028t7c12umlabha0rpvggmg9lcnej53.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyclzpv81iREuvC0Uumcd-IiBO5PhQaAc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1087341606737-3028t7c12umlabha0rpvggmg9lcnej53.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
