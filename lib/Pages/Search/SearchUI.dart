@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:unmasked_ai/Pages/Search/SearchController.dart';
 
-class SearchUI extends GetView<SearchController>{
-
+class SearchUI extends GetView<SearchController> {
   @override
-  Widget build(BuildContext context){
-    return const Scaffold();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Search'),
+      )
+    );
   }
 }
