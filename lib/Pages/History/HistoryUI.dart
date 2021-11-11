@@ -13,9 +13,19 @@ class HistoryUI extends GetView<HistoryController> {
       body: Column(
         children: [
           Image.file(controller.imagePath),
-          Text('Detect 1 student confused'),
-          Text('This will send image to backend to process '),
-          CupertinoActivityIndicator()
+          Text(
+            'Detect 1 student confused',
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: Get.textTheme.headline6!.fontSize),
+          ),
+          Text(
+            'This will send image to backend to process ',
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: Get.textTheme.headline6!.fontSize),
+          ),
+          const CupertinoActivityIndicator()
         ],
       ),
     );
