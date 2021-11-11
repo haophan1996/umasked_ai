@@ -9,16 +9,22 @@ class HomeController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
   }
 
-
   Future getImageCamera() async {
-    final image = await imagePicker.getImage(source: ImageSource.camera);
+   // final image = await imagePicker.getImage(source: ImageSource.camera);
+    final image = await imagePicker.pickImage(source: ImageSource.camera);
     imageFile = File(image!.path);
-    print(imageFile);
-    if (imageFile != null){
+    if (imageFile != null) {
+      Get.toNamed(Routes.history, arguments: [imageFile]);
+    }
+  }
+
+  Future getImageGallery() async {
+    final image = await imagePicker.pickImage(source: ImageSource.gallery);
+    imageFile = File(image!.path);
+    if (imageFile != null) {
       Get.toNamed(Routes.history, arguments: [imageFile]);
     }
   }
