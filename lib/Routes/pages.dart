@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:unmasked_ai/Pages/History/HistoryBinding.dart';
-import 'package:unmasked_ai/Pages/History/HistoryUI.dart';
+import 'package:unmasked_ai/Pages/Result/ResultBinding.dart';
+import 'package:unmasked_ai/Pages/Result/ResultUI.dart';
 import 'package:unmasked_ai/Pages/Home/HomeBinding.dart';
 import 'package:unmasked_ai/Pages/Home/HomeUI.dart';
 import 'package:unmasked_ai/Pages/Search/SearchBinding.dart';

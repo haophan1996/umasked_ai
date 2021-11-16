@@ -33,7 +33,7 @@ dependencies:
   card_swiper: ^1.0.4
   extended_image: ^5.1.1
   image_picker: ^0.8.4+3
-  camera: ^0.9.4+3
+  #camera: ^0.9.4+3
 
 
   # The following adds the Cupertino Icons font to your application.

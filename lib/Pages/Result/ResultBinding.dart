@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:unmasked_ai/Pages/History/HistoryController.dart';
+import 'package:unmasked_ai/Pages/Result/ResultController.dart';
 
 class HistoryBinding extends Bindings {
   @override
