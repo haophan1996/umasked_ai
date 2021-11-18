@@ -14,7 +14,7 @@ class AppPage {
       name: Routes.home,
       popGesture: true,
       gestureWidth: (context) => context.width,
-      page: () => HomeUI(),
+      page: () => const HomeUI(),
       binding: HomeBinding(),
     ),
     GetPage(

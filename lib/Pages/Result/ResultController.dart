@@ -5,6 +5,7 @@ import 'package:dio_http/dio_http.dart';
 
 
 class HistoryController extends GetxController {
+  static HistoryController get i => Get.find();
   late File imagePath;
   var dio = Dio();
   Map responseBody = {};
