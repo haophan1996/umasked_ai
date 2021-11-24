@@ -1,5 +1,8 @@
+import 'dart:typed_data';
+import 'dart:ui' as ui;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'ResultController.dart';
@@ -27,10 +30,10 @@ class HistoryUI extends GetView<HistoryController> {
                       Image.file(controller.imagePath),
                       GetBuilder<HistoryController>(builder: (controller) {
                         return controller.responseBody.isNotEmpty &&
-                            controller.responseBody['x'] != 'None'
+                                controller.responseBody['x'] != 'None'
                             ? CustomPaint(
-                          painter: YourDrawRect(),
-                        )
+                                painter: YourDrawRect(),
+                              )
                             : Container();
                       })
                     ],
@@ -57,13 +60,16 @@ class HistoryUI extends GetView<HistoryController> {
                       controller.responseBody['x'] == 'None' ? 'Not Detected' : 'Detected',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: controller.responseBody['x'] == 'None' ? Colors.redAccent : Colors.blue,
+                          color: controller.responseBody['x'] == 'None'
+                              ? Colors.redAccent
+                              : Colors.blue,
                           fontSize: Get.textTheme.bodyText1!.fontSize! + 5.0),
                     ),
                     Text(controller.responseBody.toString(),
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: Get.textTheme.bodyText1!.fontSize! + 3.0)),
+                    TextButton(onPressed: () async {}, child: const Text('Test'))
                   ],
                 );
               }
@@ -77,18 +83,29 @@ class HistoryUI extends GetView<HistoryController> {
 
 class YourDrawRect extends CustomPainter {
   @override
-  void paint(Canvas canvas, Size size) {
-    canvas.drawRect(
-      Rect.fromLTRB(
-          double.parse(HistoryController.i.responseBody['x']),
-          double.parse(HistoryController.i.responseBody['y']),
-          double.parse(HistoryController.i.responseBody['h']),
-          double.parse(HistoryController.i.responseBody['w'])),
-      Paint()
-        ..color = const Color(0xFF0099FF).withOpacity(0.5)
-        ..strokeWidth = 2.0
-        ..style = PaintingStyle.stroke,
-    );
+  void paint(Canvas canvas, Size size) async {
+    var paint1 = Paint()
+      ..color = const Color(0xFF0099FF).withOpacity(0.5)
+      ..strokeWidth = 2.0
+      ..style = PaintingStyle.stroke;
+    double x = double.parse(HistoryController.i.responseBody['x']);
+    double y = double.parse(HistoryController.i.responseBody['y']);
+    double h = double.parse(HistoryController.i.responseBody['h']);
+    double w = double.parse(HistoryController.i.responseBody['w']);
+
+    canvas.drawRect(Offset(x, y) & Size(h, w), paint1);
+
+    // canvas.drawRect(
+    //   Rect.fromLTRB(
+    //       double.parse(HistoryController.i.responseBody['x']),
+    //       double.parse(HistoryController.i.responseBody['y']),
+    //       double.parse(HistoryController.i.responseBody['h']),
+    //       double.parse(HistoryController.i.responseBody['w'])),
+    //   Paint()
+    //     ..color = const Color(0xFF0099FF).withOpacity(0.5)
+    //     ..strokeWidth = 2.0
+    //     ..style = PaintingStyle.stroke,
+    // );
   }
 
   @override
