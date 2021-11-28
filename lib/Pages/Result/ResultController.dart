@@ -1,9 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:dio_http/adapter.dart';
 import 'package:get/get.dart';
 import 'package:dio_http/dio_http.dart';
-import 'package:http/http.dart' as http;
 import 'package:unmasked_ai/Pages/Home/HomeController.dart';
 
 class HistoryController extends GetxController {
@@ -26,7 +24,6 @@ class HistoryController extends GetxController {
 
   Future processImage() async {
     String imageB64 = base64Encode(imagePath.readAsBytesSync());
-
     var headers = {
       'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
       //'host': 'b3f1-2601-196-4702-840-963-c89a-47ee-3d72.ngrok.io',

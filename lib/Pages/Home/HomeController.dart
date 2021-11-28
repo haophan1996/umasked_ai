@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:image/image.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:unmasked_ai/Routes/pages.dart';
 
 class HomeController extends GetxController {
@@ -27,18 +29,33 @@ class HomeController extends GetxController {
   }
 
   Future getImageCamera() async {
-    final image =
-        await imagePicker.pickImage(source: ImageSource.camera, maxHeight: 400, maxWidth: 400);
+    final image = await imagePicker.pickImage(
+        source: ImageSource.camera,
+        maxHeight: 400,
+        maxWidth: 400,
+        preferredCameraDevice: CameraDevice.front,
+        imageQuality: 100);
+
     imageFile = File(image!.path);
+
+    //convert to png
+    var img = decodeImage(imageFile.readAsBytesSync());
+    File(image.path).writeAsBytesSync(encodePng(img!));
+
     if (imageFile != null) {
-      Get.toNamed(Routes.history, arguments: [imageFile]);
+       Get.toNamed(Routes.history, arguments: [imageFile]);
     }
   }
 
   Future getImageGallery() async {
-    final image =
-        await imagePicker.pickImage(source: ImageSource.gallery, maxHeight: 400, maxWidth: 400);
+    final image = await imagePicker.pickImage(
+        source: ImageSource.gallery, maxHeight: 300, maxWidth: 300);
     imageFile = File(image!.path);
+
+    //convert to png
+    var img = decodeImage(imageFile.readAsBytesSync());
+    File(image.path).writeAsBytesSync(encodePng(img!));
+
     if (imageFile != null) {
       Get.toNamed(Routes.history, arguments: [imageFile]);
     }
