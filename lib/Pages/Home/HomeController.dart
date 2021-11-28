@@ -28,7 +28,7 @@ class HomeController extends GetxController {
   }
 
   Future getImageGallery() async {
-    final image = await imagePicker.pickImage(source: ImageSource.gallery);
+    final image = await imagePicker.pickImage(source: ImageSource.gallery, maxHeight: 400, maxWidth: 400);
     imageFile = File(image!.path);
     if (imageFile != null) {
       Get.toNamed(Routes.history, arguments: [imageFile]);
