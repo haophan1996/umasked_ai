@@ -13,132 +13,186 @@ class HomeUI extends GetView<HomeController> {
       backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
         title: const Text('unmasked AI'),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 10, bottom: 20),
-            child: SizedBox(
-              height: Get.height / 2,
-              child: Swiper(
-                autoplay: true,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    padding: const EdgeInsets.only(top: 10, bottom: 10),
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
-                    child: Stack(
+        actions: [
+          IconButton(
+              onPressed: () {
+                Get.defaultDialog(
+                    content: Column(
                       children: [
-                        Align(
-                          child: Image.asset(
-                            'assets/homeImages/Picture$index.png',
-                          ),
-                          alignment: Alignment.center,
+                        TextField(
+                          controller: controller.inputServerTest,
+                          autofocus: true,
+                          decoration: const InputDecoration.collapsed(hintText: 'Your server Test'),
                         ),
-                        Align(
-                          alignment: Alignment.topCenter,
-                          child: Container(
-                            child: Text(
-                              controller.labelImg[index],
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: Get.textTheme.headline6!.fontSize),
-                            ),
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-                itemCount: 5,
-                viewportFraction: 0.8,
-                scale: 0.9,
-                itemWidth: 300.0,
-                itemHeight: Get.height / 2,
-                layout: SwiperLayout.STACK,
-              ),
-            ),
-          ), // Image swiper
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20),
-            child: Container(
-              decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              child: Column(
-                children: [
-                  Container(
-                    width: double.infinity,
-                    alignment: Alignment.center,
-                    child: Text(
-                      'Face scanner',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: Get.textTheme.headline6!.fontSize),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Center(
-                            child: IconButton(
-                                onPressed: () async {
-                                  await controller.getImageCamera();
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            TextButton(
+                                onPressed: () => Get.back(),
+                                child: const Text(
+                                  'Cancel',
+                                  style: TextStyle(color: Colors.red),
+                                )),
+                            const Spacer(),
+                            TextButton(
+                                onPressed: () {
+                                  controller.isDefaultSvTest = true;
+                                  controller.inputServerTest.clear();
+                                  Get.back();
                                 },
-                                icon: const Icon(
-                                  Icons.add_a_photo_sharp,
-                                  size: 30,
-                                ))),
-                        Center(
-                          child: IconButton(
-                            onPressed: () async {
-                              await controller.getImageGallery();
-                            },
-                            icon: const Icon(Icons.add_photo_alternate_outlined,
-                                size: 30),
-                          ),
-                        ),
+                                child: const Text(
+                                  'Default',
+                                  style: TextStyle(color: Colors.deepOrange),
+                                )),
+                            const Spacer(),
+                            TextButton(
+                                onPressed: () {
+                                  if (controller.inputServerTest.text.length < 5) {
+                                    controller.isDefaultSvTest = true;
+                                    Get.defaultDialog(
+                                        title: 'Hmmm! Ur host is too short',
+                                        middleText: 'Press anywhere to dismiss');
+                                  } else {
+                                    controller.isDefaultSvTest = false;
+                                    controller.svTestInput = controller.inputServerTest.text;
+                                    Get.back();
+                                  }
+                                },
+                                child: const Text('Confirm'))
+                          ],
+                        )
                       ],
                     ),
-                  ),
-                ],
-              ),
-            ),
-          ), // Face scanner
-          Padding(
-            padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
-            child: Container(
-              decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              child: Column(
-                children: [
-                  Container(
-                    width: double.infinity,
-                    alignment: Alignment.center,
-                    child: Text(
-                      'Summary',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: Get.textTheme.headline6!.fontSize),
-                    ),
-                  ),
-                  Text('\n\nNo results\n')
-                ],
-              ),
-            ),
-          ), // Summary
+                    title: 'API test');
+              },
+              icon: const Icon(Icons.web_sharp))
         ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 10, bottom: 20),
+              child: SizedBox(
+                height: Get.height / 2,
+                child: Swiper(
+                  autoplay: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      padding: const EdgeInsets.only(top: 10, bottom: 10),
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                      child: Stack(
+                        children: [
+                          Align(
+                            child: Image.asset(
+                              'assets/homeImages/Picture$index.png',
+                            ),
+                            alignment: Alignment.center,
+                          ),
+                          Align(
+                            alignment: Alignment.topCenter,
+                            child: Container(
+                              child: Text(
+                                controller.labelImg[index],
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: Get.textTheme.headline6!.fontSize),
+                              ),
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                  itemCount: 5,
+                  viewportFraction: 0.8,
+                  scale: 0.9,
+                  itemWidth: 300.0,
+                  itemHeight: Get.height / 2,
+                  layout: SwiperLayout.STACK,
+                ),
+              ),
+            ), // Image swiper
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: Container(
+                decoration: const BoxDecoration(
+                    color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(10))),
+                child: Column(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Face scanner',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: Get.textTheme.headline6!.fontSize),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Center(
+                              child: IconButton(
+                                  onPressed: () async {
+                                    await controller.getImageCamera();
+                                  },
+                                  icon: const Icon(
+                                    Icons.add_a_photo_sharp,
+                                    size: 30,
+                                  ))),
+                          Center(
+                            child: IconButton(
+                              onPressed: () async {
+                                await controller.getImageGallery();
+                              },
+                              icon: const Icon(Icons.add_photo_alternate_outlined, size: 30),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ), // Face scanner
+            Padding(
+              padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
+              child: Container(
+                decoration: const BoxDecoration(
+                    color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(10))),
+                child: Column(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Summary',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: Get.textTheme.headline6!.fontSize),
+                      ),
+                    ),
+                    Text('\n\nNo results\n')
+                  ],
+                ),
+              ),
+            ), // Summary
+          ],
+        ),
       ),
     );
   }
