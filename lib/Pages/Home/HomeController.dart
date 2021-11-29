@@ -3,12 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image/image.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:unmasked_ai/Routes/pages.dart';
 
 class HomeController extends GetxController {
   static HomeController get i => Get.find();
   final imagePicker = ImagePicker();
+  final emojiSize = 40.0;
   TextEditingController inputServerTest = TextEditingController();
   late File imageFile;
   bool isDefaultSvTest = true;
@@ -21,6 +21,27 @@ class HomeController extends GetxController {
     'Neural network',
     'Training Data',
     'Implementation'
+  ];
+
+  List labelEmoji = [
+    'Frustrated',
+    'Bored',
+    'Nervous',
+    'Happy',
+    'Neutral',
+    'Sad',
+    'Surprise',
+  ];
+
+  List summary = [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0, // count for total
   ];
 
   @override
@@ -43,13 +64,13 @@ class HomeController extends GetxController {
     File(image.path).writeAsBytesSync(encodePng(img!));
 
     if (imageFile != null) {
-       Get.toNamed(Routes.history, arguments: [imageFile]);
+      Get.toNamed(Routes.history, arguments: [imageFile]);
     }
   }
 
   Future getImageGallery() async {
-    final image = await imagePicker.pickImage(
-        source: ImageSource.gallery, maxHeight: 300, maxWidth: 300);
+    final image =
+        await imagePicker.pickImage(source: ImageSource.gallery, maxHeight: 300, maxWidth: 300);
     imageFile = File(image!.path);
 
     //convert to png

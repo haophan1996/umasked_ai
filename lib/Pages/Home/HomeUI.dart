@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:unmasked_ai/Pages/Home/HomeController.dart';
 import 'package:card_swiper/card_swiper.dart';
@@ -10,9 +11,19 @@ class HomeUI extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade200,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('unmasked AI'),
+        title: const Text(
+          'unmasked AI',
+          style: TextStyle(color: Colors.black),
+        ),
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: Colors.white,
+            statusBarBrightness: Brightness.dark,
+            statusBarIconBrightness: Brightness.dark
+        ),
+        elevation: 0.0,
+        backgroundColor: Colors.white,
         actions: [
           IconButton(
               onPressed: () {
@@ -66,7 +77,10 @@ class HomeUI extends GetView<HomeController> {
                     ),
                     title: 'API test');
               },
-              icon: const Icon(Icons.web_sharp))
+              icon: const Icon(
+                Icons.web_sharp,
+                color: Colors.black,
+              ))
         ],
       ),
       body: SingleChildScrollView(
@@ -84,7 +98,7 @@ class HomeUI extends GetView<HomeController> {
                     return Container(
                       padding: const EdgeInsets.only(top: 10, bottom: 10),
                       decoration: const BoxDecoration(
-                        color: Colors.white,
+                        color: Color(0xFFEEEEEE),
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                       ),
                       child: Stack(
@@ -105,7 +119,7 @@ class HomeUI extends GetView<HomeController> {
                                     fontSize: Get.textTheme.headline6!.fontSize),
                               ),
                               decoration: const BoxDecoration(
-                                color: Colors.white,
+                                color: Color(0xFFEEEEEE),
                               ),
                             ),
                           ),
@@ -126,7 +140,7 @@ class HomeUI extends GetView<HomeController> {
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: Container(
                 decoration: const BoxDecoration(
-                    color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(10))),
+                    color: Color(0xFFEEEEEE), borderRadius: BorderRadius.all(Radius.circular(10))),
                 child: Column(
                   children: [
                     Container(
@@ -140,7 +154,7 @@ class HomeUI extends GetView<HomeController> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(top: 10),
+                      padding: const EdgeInsets.only(top: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -173,7 +187,7 @@ class HomeUI extends GetView<HomeController> {
               padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
               child: Container(
                 decoration: const BoxDecoration(
-                    color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(10))),
+                    color: Color(0xFFEEEEEE), borderRadius: BorderRadius.all(Radius.circular(10))),
                 child: Column(
                   children: [
                     Container(
@@ -186,7 +200,32 @@ class HomeUI extends GetView<HomeController> {
                             fontSize: Get.textTheme.headline6!.fontSize),
                       ),
                     ),
-                    Text('\n\nNo results\n')
+                    // Text('\n\nNo results\n')
+                    SizedBox(
+                      height: 90,
+                      child: ListView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        itemCount: 7,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Column(
+                            children: [
+                              Image.asset(
+                                'assets/emoji/${controller.labelEmoji.elementAt(index)}.png',
+                                width: controller.emojiSize,
+                                height: controller.emojiSize,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 5, right: 5),
+                                child: Text(controller.labelEmoji.elementAt(index)),
+                              ),
+                              Text('0')
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                    Text('Total: ---%\n')
                   ],
                 ),
               ),

@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:dio_http/dio_http.dart';
 import 'package:unmasked_ai/Pages/Home/HomeController.dart';
 
-class HistoryController extends GetxController {
-  static HistoryController get i => Get.find();
+class ResultController extends GetxController {
+  static ResultController get i => Get.find();
   late File imagePath;
   var dio = Dio();
   Map responseBody = {};
@@ -41,6 +41,16 @@ class HistoryController extends GetxController {
     responseBody = response.data;
     update();
   }
+
+  getEmoji(Map data){
+    if (data['x'] == 'None' && data['h'] == 'None' && data['w'] == 'None' && data['y'] == 'None' ){
+      return 'nil';
+    } else {
+      return data['class_name'];
+    }
+  }
+
+
 
 // Future<ui.Image> load(File imageP) async{
 //   final bytes = await imageP.readAsBytes();

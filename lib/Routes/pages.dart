@@ -28,8 +28,8 @@ class AppPage {
       name: Routes.history,
       popGesture: true,
       gestureWidth: (context) => context.width,
-      page: () => HistoryUI(),
-      binding: HistoryBinding(),
+      page: () => ResultUI(),
+      binding: ResultBinding(),
     ),
   ];
 }
